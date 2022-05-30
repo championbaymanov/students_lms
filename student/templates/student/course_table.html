@@ -1,0 +1,48 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title mb-0"><i>Course Table</i></p>
+          {% if request.user.is_superuser %}
+          <a href ="{% url 'course_c' %}" class="btn btn-primary mr-2">Add Course</a>
+          {% endif %}
+          <div class="table-responsive">
+            <table class="table table-striped table-borderless">
+              <thead>
+                <tr>
+                  <th><i>Title</i></th>
+                  <th><i>Price</i></th>
+                  <th><i>Lesson qty</i></th>
+                  <th><i>Center Profit</i></th>
+                    <th><i>Actions</i></th>
+                </tr>  
+              </thead>
+              <tbody>
+                {% for course in courses %}
+                <tr>
+                  <td class="font-weight-bold">{{ course.title }}</td>
+                  <td class="font-weight-bold">{{ course.price }}</td>
+                  <td class="font-weight-bold">{{ course.lesson_qty }}</td>
+                  <td class="font-weight-bold">{{ course.center_profit }}</td>
+                  
+                    <td class="font-weight-bold">
+                        <a href="{% url 'course_u' course.id %}"><i class="ti-pencil btn-icon-prepend"></i></a>
+                        <a href="{% url 'course_d' course.id %}"><i class="ti-trash btn-icon-prepend"></i></a>
+                    </td>
+                  
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+{% endblock %}

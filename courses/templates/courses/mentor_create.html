@@ -1,0 +1,57 @@
+{% extends 'student/base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block content %}
+<a class="fa fa-home" aria-hidden="true"  href="{% url 'dashboard' %}"> Dashboard </a> <p class="fa fa-angle-double-right" aria-hidden="true" ></p>
+<a href="{% url 'mentors_page' %}"> Mentors Table </a>
+<br>
+<br>
+<br>
+
+<div class="row">
+    <div class="col-md-6 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Mentor Form</h4>
+          <form class="forms-sample" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="exampleInputUsername1">First name</label>
+              {% render_field form.f_name type="text" class="form-control" id="exampleInputUsername1" placeholder="Abbos" %}
+            </div>
+            <div class="form-group">
+              <label for="exampleInputUsername1">Last name</label>
+              {% render_field form.s_name type="text" class="form-control" id="exampleInputUsername1" placeholder=" Nazarov" %}
+            </div>
+            <div class="form-group">
+              <label for="exampleInputUsername1">Age</label>
+              {% render_field form.age type="text" class="form-control" id="exampleInputUsername1" placeholder="Masalan 22..." %}
+            </div>
+            <div class="form-group">
+              <label for="exampleInputUsername1">Gender</label>
+              {% render_field form.gender type="dropdown" class="form-control" id="exampleInputUsername1"   %}
+            </div>
+            <div class="form-group">
+                <label for="exampleInputUsername1">Specification</label>
+                {% render_field form.spes type="text" class="form-control" id="exampleInputUsername1" placeholder="Back end" %}
+            </div>
+            <div class="form-group">
+              <label for="exampleInputUsername1">Phone</label>
+              {% render_field form.phone type="text" class="form-control" id="exampleInputUsername1" placeholder="+99894-286-33-54" %}
+            </div>
+            <div class="form-group">
+              <label for="exampleInputUsername1">Mentor Foiz</label>
+              {% render_field form.mentor_foiz type="text" class="form-control" id="exampleInputUsername1" placeholder="50%" %}
+          </div>
+              
+
+
+              <button type="submit" class="btn btn-primary mr-2">OK</button>
+            </form>
+        </div>
+      </div>
+    </div>
+</div>
+
+{% endblock %}

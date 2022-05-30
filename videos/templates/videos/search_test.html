@@ -1,0 +1,77 @@
+{% extends 'student/base.html' %} {% block content %} 
+
+
+<a class="fa fa-home" aria-hidden="true"  href="{% url 'dashboard' %}"> Dashboard </a> <p class="fa fa-angle-double-right" aria-hidden="true" ></p>
+<a href="{% url 'videos' %}"> Videos </a>
+<br>
+<br>
+<div class="col-md-6 col-xl-12">
+    {% include 'videos/search.html' %}
+</div>
+<br>
+<header class="header text-center text-white" style="background-image: linear-gradient(-225deg, #5D9FFF 0%, #B8dCFF 48%, #6BBBFF 100%);">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <b>So'rov: {{query}}</b>
+                <p class="lead-2 opacity-90 mt-6">So'rov bo'yicha {{total}}ta Natija topildi!</p>
+
+            </div>
+        </div>
+    </div>
+</header>
+<br>
+{% include 'videos/post_test.html' %}
+<br>
+<main class="main-content">
+    <div class="section bg-gray">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-8 col-xl-9">
+                    <div class="row gap-y">
+                        
+                    </div>
+                    <!--start pagination-->
+                    <div class="d-flex justify-content-center">
+                        <ul class="pagination">
+                            {% if posts.has_previous %}
+                            <li class="page-item"><a href="?search_videos={{query}}&page={{posts.previous_page_number}}" class="page-link">Previous</a></li>
+                            {% else %}
+                            <li class="page-item disabled"><a href="#" class="page-link">Previous</a></li>
+                            {% endif %}
+
+                            {% if 4 in posts.paginator.page_range %}
+                                    {% if page|add:"-1" >= 1 %}
+                                <li class="page-item"><a href="?search_videos={{query}}&page={{page|add:"-1"}}" class="page-link">{{page|add:"-1"}}</a></li>
+                                    {% endif %}
+                                    <li class="page-item"><a href="?search_videos={{query}}&page={{page}}" class="page-link">{{page}}</a></li>
+                                    {% if page|add:"1" in posts.paginator.page_range %}
+                                    <li class="page-item"><a href="?search_videos={{query}}&page={{page|add:"1"}}" class="page-link">{{page|add:"1"}}</a></li>
+                                    {% endif %}
+                            {% else %}
+                            {% for number in posts.paginator.page_range %}
+                            <li class="page-item"><a href="?search_videos={{query}}&page={{number}}" class="page-link">{{number}}</a></li>
+                            {% endfor %}
+                            {% endif %}
+                            
+
+                            {% if posts.has_next %}
+                            <li class="page-item"><a href="?search_videos={{query}}&page={{posts.next_page_number}}" class="page-link">Next</a></li>
+                            {% else %}
+                            <li class="page-item disabled"><a href="#" class="page-link">Next</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+
+
+                </div>
+
+                <!-- Side Bar-->
+
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock content %}

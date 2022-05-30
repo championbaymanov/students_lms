@@ -1,0 +1,97 @@
+{% extends 'student/base.html' %}
+ {% load hitcount_tags %} 
+ {% block content %}
+
+<main class="main-content">
+
+    <a class="fa fa-home" aria-hidden="true"  href="{% url 'dashboard' %}"> Bosh-Sahifa </a> <p class="fa fa-angle-double-right" aria-hidden="true" ></p>
+    <a href="{% url 'videos' %}">Videos </a><p class="fa fa-angle-double-right" aria-hidden="true" ></p>
+    <a href=""> Post Details</a>
+<br>
+<br>
+    <div class="section">
+        <div class="container">
+            <div class="text-center mt-8">
+                <h3 style="color: rgb(11, 163, 214)"> {{post.title}}</h3>
+            </div>
+            
+
+            <div class="post-content row mt-5 ">
+                <div class="col-lg-8 mx-auto ">
+
+                    <div>
+                        <iframe width="350" height="200" src="{{ post.vidoe_url }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="post-content row mt-5 ">
+                <div class="col-lg-8 mx-auto ">
+
+                    <div>
+                        {{post.overview|safe}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="post-content row mt-5 ">
+                <div class="col-lg-8 mx-auto ">
+
+                    <div>
+                <h6 class="fa fa-user-o" aria-hidden="true"> <a href=""> {{ post.author }} | </a> </h6>
+                <h6 class="fa fa-calendar" aria-hidden="true">  {{post.date|date}}  <a href="">  |  </a> </h6>
+                <h6 class="fa fa-check-circle-o" aria-hidden="true"> Categories<a href="">   {{post.categories.all.0}}  | </a> </h6>
+                <h6 class="fa fa-comments-o" aria-hidden="true"> Comments<a href="">   {{post_comments_count}}  | </a> </h6>
+                        
+                    </div>
+                    <hr class="w-100px ">
+                    <div>
+                    </div>
+
+
+                </div>
+            </div>
+            <!--comments-->
+            
+
+<div class="section ">
+    <div class="container ">
+        <div style="color:rgb(35, 128, 241);" class="card-header fa fa-comments-o" aria-hidden="true"> Comments {{post_comments_count}}</div><br><br>
+        <div class="row ">
+            <div class="col-lg-8 mx-auto ">
+                <!--display coment-->
+
+                    <div class="media-list">
+                        {% for comment in post_comments %}
+                        
+                        <div>
+                            <div class="avatar-wrapper avatar-extra-text"><span class="round"><img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png" alt="user" width="50"></span></div>
+                            <div class="media-body">
+                                <div class="small-1">
+                                    <b> {{comment.user}}</b>
+                                    <time style="color:rgb(12, 114, 211)" class="ml-4 opaciy-70 small-3"> <b> {{comment.content}}</b></time>
+                                </div>
+                                    <p> <b > {{comment.date}}</b> </p>
+                                    </div>
+                                </div>
+                                <br>
+                                {% endfor %}
+                            </div>
+                            
+                            
+            <!--display the form-->
+                <form method="POST" action="{% url 'post' slug=post.slug2 %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        {{form}}
+                    </div> 
+                        <button class="btn btn-primary btn-block " type="submit">Add Comment</button>   
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+            
+
+{% endblock %}

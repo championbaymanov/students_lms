@@ -1,0 +1,43 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+{% block content %}
+
+<form method = "GET" action="">
+    <div class="col-md-3 grid-margin stretch-card" class="input-group">
+        <input name='q' type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+        <button type="submit" class="btn btn-outline-primary">Qidirish</button>
+    </div>
+
+{% for video_content in page.object_list %}
+<iframe width="560" height="315" src="{{ video_content.video_url }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+{% endfor %}
+
+<p>Page: {{ page.number }}/{{ page.paginator.num_pages }} </p>
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+      <li class="page-item">
+        {% if page.has_previous %}
+        <a class="page-link" href="{% url 'test' %}?page={{ page.previous_page_number }}" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+          <span class="sr-only">Previous</span>
+        </a>
+        {% endif %}
+      </li>
+
+      <li class="page-item"><a class="page-link" href="#"> {{ page.number }}</a></li>
+      <li class="page-item"><a class="page-link" href="#">...</a></li>
+      <li class="page-item"><a class="page-link" href="#">{{ page.paginator.num_pages }}</a></li>
+      <li class="page-item">
+
+        {% if page.has_next %}
+        <a class="page-link" href="{% url 'test' %}?page={{ page.next_page_number }}" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+          <span class="sr-only">Next</span>
+        </a>
+        {% endif %}
+      </li>
+    </ul>
+  </nav>
+</form>
+
+{% endblock %}

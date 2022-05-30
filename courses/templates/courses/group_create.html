@@ -1,0 +1,50 @@
+{% extends 'student/base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block content %}
+<a class="fa fa-home" aria-hidden="true"  href="{% url 'dashboard' %}"> Dashboard </a> <p class="fa fa-angle-double-right" aria-hidden="true" ></p>
+<a href="{% url 'groups_page' %}"> Groups Table </a>
+<br>
+<br>
+<br>
+
+<div class="row">
+    <div class="col-md-6 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Group Form</h4>
+          <p class="card-description">
+            
+          </p>
+          <form class="forms-sample" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="exampleInputUsername1">Group</label>
+              {% render_field form.course type="text" class="form-control" id="exampleInputUsername1" placeholder="Masalan Python..." %}
+            </div>
+            <div class="form-group">
+                <label for="exampleInputUsername1">Title</label>
+                {% render_field form.title type="text" class="form-control" id="exampleInputUsername1" placeholder="Masalan Python 001..." %}
+              </div>
+            <div class="form-group">
+                <label for="exampleTextarea1">Mentor</label>
+                {% render_field form.mentor class="form-control" id="exampleTextarea1" placeholder="Abbos Nazarov" %}
+            </div>
+            <div class="form-group">
+                <label for="exampleInputUsername1">Student qty</label>
+                {% render_field form.mentee_qty type="number" class="form-control" id="exampleInputUsername1" placeholder="Masalan 12" %}
+            </div>
+            <div class="form-group">
+              <label for="exampleInputUsername1">Lesson qty</label>
+              {% render_field form.lesson_qty type="number" class="form-control" id="exampleInputUsername1" placeholder="72" %}
+          </div>
+
+              <button type="submit" class="btn btn-primary mr-2">OK</button>
+            </form>
+        </div>
+      </div>
+    </div>
+</div>
+
+{% endblock %}

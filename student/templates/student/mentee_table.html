@@ -1,0 +1,76 @@
+{% extends 'mainapp/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title mb-0"><i>Mentees</i></p>
+          <form action="" method="POST">
+            {% csrf_token %}
+            <div class="btn-group">
+              <select type="dropdown" class="form-control form-control-lg"
+              id="exampleInputUsername1" name="group_id" id="">
+              <option type="submit" value="{{ group }}">Barcha Guruhlar</option>
+              {% for group in groups %}
+                <option type="submit" value="{{ group.id }}">{{ group }}</option>
+                {% endfor %}
+            </select>
+            </div>
+            <button class="btn btn-success" type="submit">OK</button>
+          </form>
+          <br>
+          {% if request.user.is_superuser %}
+          <tr><a href ="{% url 'mentee_c' %}" class="btn btn-primary mr-2">Add Mentees</a>
+            {% endif %}
+          </tr>
+          <div class="table-responsive">
+            <table class="table table-striped table-borderless">
+              <thead>
+                <tr>
+                  <th>Full Name</th>
+                  <th>Birth Date</th>
+                  <th>Gender</th>
+                  <th>Group</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Payment</th>
+                    <th>Actions</th>
+                </tr>  
+              </thead>
+              <tbody>
+                {% for mentee in mentees %}
+                <tr>
+                  <td>{{ mentee.full_name }}</td>
+                  <td class="font-weight-bold">{{ mentee.birth_date }}</td>
+                  <td>{{ mentee.gender }}</td>
+                  <td>{{ mentee.group }}</td>
+                  <td>{{ mentee.email }}</td>
+                  <td>{{ mentee.phone }}</td>
+                  {% if mentee.payment == 'Payed' %}
+                  <td class="font-weight-medium"><div class="badge badge-success">{{ mentee.payment }}</div></td>
+                {% else %}
+                  <td class="font-weight-medium"><div class="badge badge-danger">{{ mentee.payment }}</div></td>
+                {% endif %}
+                  <td class="font-weight-bold">
+                    <a href="{% url 'mentee_u' mentee.id %}"><i class="ti-pencil btn-icon-prepend"></i></a>
+                    <a href="{% url 'mentee_d' mentee.id %}"><i class="ti-trash btn-icon-prepend"></i></a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}

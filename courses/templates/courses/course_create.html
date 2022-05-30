@@ -1,0 +1,47 @@
+{% extends 'mainapp/base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block content %}
+
+
+<div class="row">
+    <div class="col-md-6 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Course Create Form</h4>
+          <p class="card-description">
+            Basic form layout
+          </p>
+          <form class="forms-sample" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="exampleInputUsername1">Title</label>
+              {% render_field form.title type="text" class="form-control" id="exampleInputUsername1" placeholder="Title" %}
+
+            </div>
+            <div class="form-group">
+                <label for="exampleInputUsername1">Price</label>
+                {% render_field form.price type="number" class="form-control" id="exampleInputUsername1" placeholder="Price 500000" %}
+              </div>
+            <div class="form-group">
+                <label for="exampleTextarea1">Description</label>
+                {% render_field form.description class="form-control" id="exampleTextarea1" rows="6" %}
+            </div>
+            <div class="form-group">
+                <label for="exampleInputUsername1">Lesson qty</label>
+                {% render_field form.lesson_qty type="number" class="form-control" id="exampleInputUsername1" placeholder="lesson 123" %}
+            </div>
+            <div class="form-group">
+              <label for="exampleInputUsername1">Center Profit</label>
+              {% render_field form.center_profit type="number" class="form-control" id="exampleInputUsername1" placeholder="0001%" %}
+            </div>
+
+              <button type="submit" class="btn btn-primary mr-2">OK</button>
+            </form>
+        </div>
+      </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'mainapp/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title mb-0"><i>Groups</i></p>
+          {% if request.user.is_superuser %}
+          <tr><a href ="{% url 'group_c' %}" class="btn btn-primary mr-2">Add Group</a>
+            {% endif %}
+           
+            <form action="" method="POST">
+              <br>
+              {% csrf_token %}
+              <div class="btn-group">
+                <select type="dropdown" class="form-control form-control-lg"
+                id="exampleInputUsername1" name="mentor_id" id="">
+                <option type="submit" value="{{ mentor }}">Barcha Mentorlar</option>
+                {% for mentor in mentors %}
+                  <option type="submit" value="{{ mentor.id }}">{{ mentor }}</option>
+                  {% endfor %}
+              </select>
+              </div>
+              <button class="btn btn-success" type="submit">OK</button>
+            </form>
+          </tr>
+          <div class="table-responsive">
+            <table class="table table-striped table-borderless">
+              <thead>
+                <tr>
+                  <th>course</th>
+                  <th>title</th>
+                  <th>mentor</th>
+                  <th>student_qty</th>
+                    <th>Actions</th>
+                </tr>  
+              </thead>
+              <tbody>
+                {% for group in groups %}
+                <tr>
+                  <td>{{ group.course }}</td>
+                  <td class="font-weight-bold">{{ group.title }}</td>
+                  <td>{{ group.mentor }}</td>
+                  <td>{{ group.student_qty }}</td>
+                    <td class="font-weight-bold">
+                      <a href="{% url 'group_u' group.id %}"><i class="ti-pencil btn-icon-prepend"></i></a>
+                      <a href="{% url 'group_d' group.id %}"><i class="ti-trash btn-icon-prepend"></i></a>
+                    </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+{% endblock %}

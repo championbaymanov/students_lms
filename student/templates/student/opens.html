@@ -1,0 +1,19 @@
+<br>
+<br>
+<h2  style="color:  rgb(37, 130, 243);"> <b  class="fa fa-caret-square-o-right" aria-hidden="true"> Open Lessons</b> </h2>
+<br><br>
+    <div class="card-deck">
+      {% for open in page.object_list %}
+      <div class="card">
+        <img class="card-img-top" src="{{ open.phota.url }}" alt="Card image cap">
+        <div class="card-body">
+          <h5 style="color: rgb(37, 130, 243);" class="card-title">{{ open.title }}</h5>
+          <p style="color: rgb(37, 130, 243);" class="card-text"> Price: <b style="color: rgb(255, 169, 10);"> </b> <b  style="color: green;"> UZS</b></p>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">Last updated 3 mins ago</small>
+        </div>
+      </div>
+      {% endfor %}
+      <br>
+      <br>

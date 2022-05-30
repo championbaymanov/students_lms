@@ -1,0 +1,70 @@
+{% extends 'student/base.html' %}
+{% load hitcount_tags %} 
+
+{% load static %}
+
+{% block content %}
+
+<a class="fa fa-home" aria-hidden="true"  href="{% url 'dashboard' %}"> Dashboard </a> <p class="fa fa-angle-double-right" aria-hidden="true" ></p>
+<a href="{% url 'open_lesson' %}"> Open Lesson </a><p class="fa fa-angle-double-right" aria-hidden="true" ></p>
+<a href=""> Post Details</a>
+<br>
+
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-body">
+            <img class="card-img-top" src="{{ object.phota.url }}" alt="Card image cap">
+            <br>
+            <br>
+            
+            <br>
+            <p  style="color: rgb(16, 133, 217);" class="fa fa-check-circle-o" aria-hidden="true"> <b> {{object.title}}</b></p> <br>
+            <p style="color: rgb(16, 133, 217);" class="fa fa-calendar" aria-hidden="true"> <b> Sana:</b> {{object.date_of_the_event}}</p><br>
+            <p style="color: rgb(16, 133, 217);" class="fa fa-user" aria-hidden="true"> <b> Spekir:</b> {{object.spiker}}</p><br>
+            <p style="color: rgb(16, 133, 217);" class="fa fa-map-marker" aria-hidden="true"> <b> Manzil:</b> {{object.address}}</p><br>
+            <p style="color: rgb(16, 133, 217);" class="fa fa-phone" aria-hidden="true"> <b> Murojaat Uchun:</b> {{object.for_information}}</p><br>
+            <h6 > <a class="fa fa-eye" aria-hidden="true" href=""> <b>Ko'rildi</b></a> {% get_hit_count for object %}</h6>
+            {% if request.user.is_superuser %}
+            <td style="color: black;">
+            <a class="fa fa-trash" aria-hidden="true" href="{% url 'open_delete' object.id %}"> <b>  Delete  </b></a>
+            <a class="fa fa-pencil" aria-hidden="true" href="{% url 'update_open' object.id %}"><b>  Edit  </b></a>
+            </td>
+            {% endif %}
+            <br>
+            
+            <b style="color: rgb(16, 133, 217);" class="fa fa-caret-square-o-down" aria-hidden="true"> Description</b> <br>
+            <b>{{object.description |safe}}</b>
+            <p></p>
+            <br>
+            <br>
+            <form method="post" action=""></form>
+            <br>
+            <div class="section ">
+                <div class="container ">
+                    <div style="color:rgb(35, 128, 241);" class="fa fa-caret-right" aria-hidden="true"> Ochiq Darsga Kirish Uchun Ro'yhatdan O'ting!</div><br><br>
+                    <div style="color:rgb(35, 128, 241);" class="fa fa-check-circle-o" aria-hidden="true"> Ro'yhatdan O'tganlar Soni {{post_comments_count}} ta</div><br><br>
+                    <div class="row ">
+                        <div class="col-lg-8 mx-auto ">
+                            <!--display coment-->
+
+                                        
+                                        
+                        <!--display the form-->
+                            <form method="POST" action="{% url 'open_lesson' slug=object.slug %}">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    {{form}}
+                                </div> 
+                                    <button class="btn btn-primary btn-block " type="submit">Ro'yhatdan O'tish</button>   
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <p></p>
+</div>
+
+{% endblock %}

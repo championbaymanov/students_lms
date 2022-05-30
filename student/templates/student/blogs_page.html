@@ -1,0 +1,80 @@
+
+{% extends 'mainapp/base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block content %}
+
+{% for post in posts %}
+    
+
+{% endfor %}
+
+  <section class="blog_area section_gap">
+    <div class="container">
+        <div class="row">
+          {% for post in page.object_list %}
+            <div class="col-lg-7 mb-5 mb-lg-0">
+                <div class="blog_left_sidebar">
+                    <article class="blog_item">
+                      <div class="blog_item_img">
+                        <img class="card-img rounded-0" src="" alt="">
+                        <a href="#" class="blog_item_date">
+                        </a>
+                        <h1>
+                          <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+                          </h1>
+                          
+                      </div>
+                      <br>
+                      <div class="blog_details">
+                          <a class="d-inline-block" href="">
+                              <h3></h3>
+                          </a>
+                          <p>{{ post.excerpt }}</p>
+                          <a href="#"><i class="ti-user"></i>{{ post.author }}</a>
+                          <a href="#"><i class="ti-comments"></i> Comments</a>
+                          <p></p>
+
+                      </div>
+                    </article>
+                </div>
+            </div>
+            {% endfor %}
+            <br>
+            <br>
+
+        </div>
+    </div>
+    <form  action="">
+        <p style="color: rgb(25, 151, 224);"> <b> Page:</b> <a type="button" class="btn btn-outline-warning"><i style="color: rgb(25, 151, 224);" >{{ page.number }}/{{ page.paginator.num_pages }}</i></a></p>
+      
+      <nav aria-label="Page navigation example">
+      <ul class="pagination">
+      <li class="page-item">
+      {% if page.has_previous %}
+      <a class="page-link" href="{% url 'blogs_page' %}?page={{ page.previous_page_number }}" aria-label="Previous">
+      <span aria-hidden="true">&laquo;</span>
+      <span class="sr-only">Previous</span>
+      </a>
+      {% endif %}
+      </li>
+      
+      <li class="page-item"><a class="page-link" href="#"> {{ page.number }}</a></li>
+      <li class="page-item"><a class="page-link" href="#">...</a></li>
+      <li class="page-item"><a class="page-link" href="#">{{ page.paginator.num_pages }}</a></li>
+      <li class="page-item">
+      
+      {% if page.has_next %}
+      <a class="page-link" href="{% url 'blogs_page' %}?page={{ page.next_page_number }}" aria-label="Next">
+      <span aria-hidden="true">&raquo;</span>
+      <span class="sr-only">Next</span>
+      </a>
+      {% endif %}
+      </li>
+      </ul>
+      </nav>
+      </form>
+</section>
+
+{% endblock %}

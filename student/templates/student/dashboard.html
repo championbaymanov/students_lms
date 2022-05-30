@@ -1,0 +1,236 @@
+{% extends 'student/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12 grid-margin">
+      <div class="row">
+        <div class="col-12 col-xl-8 mb-4 mb-xl-0">
+          <h3 class="font-weight-bold">Xush Kelibsiz <b style="color: rgb(36, 179, 251);"> {{ request.user }}</b></h3>
+          <h6 class="font-weight-normal mb-0">Platformaga Oxirgi Kirgan Vaqtingiz :<span class="text-primary"> {{ user.last_login }}</span></h6>
+        </div>
+        <div class="col-12 col-xl-4">
+         <div class="justify-content-end d-flex">
+          <div class="dropdown flex-md-grow-1 flex-xl-grow-0">
+            <button class="btn btn-sm btn-light bg-white dropdown-toggle" type="button" id="dropdownMenuDate2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+             <i class="mdi mdi-calendar"></i> <b> Today:</b> <b style="color: rgb(30, 155, 244);"> {{now}}</b>
+            </button>
+            
+          </div>
+         </div>
+        </div>
+      </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6 grid-margin stretch-card">
+      <div class="card tale-bg">
+        <div class="card bg-dark text-white">
+          <img class="card-img" src="{% static 'images/faces/1613468117702.jpg' %}" alt="Card image">
+          <div class="card-img-overlay">
+            <h4 style="color: #b15353;" class="location font-weight-normal"> <h3 style="color: rgb(3, 85, 193);" class="mb-0 font-weight-normal"><i style="color: #f3be00;" class="icon-sun mr-2"><b style="color: rgb(3, 85, 193);">{{temp}}°</b></i><sup>C</sup><b style="color: rgb(0, 36, 137);"> {{city}}, Uzbekistan</b></h3></h4>
+            <h6 class="font-weight-normal"><i style="color: #3be41a;" class="fa fa-leaf" aria-hidden="true"> <b style="color: #ff01aa;"> {{description}}</b> </i></h6>
+
+            <p class="fa fa-map-marker" style="color: rgb(3, 85, 193);" aria-hidden="true" class="card-text"><b> M.Ulugbek District Asaka 39</b></p>
+          </div>
+        </div>
+        
+        <div class="card-people mt-auto">
+          <div class="weather-info">
+            <div class="d-flex">
+              <div>
+              </div>
+              <div class="ml-2">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 grid-margin transparent">
+      <div class="row">
+        <div class="col-md-6 mb-4 stretch-card transparent">
+          <div class="card card-tale">
+            <div class="card-body">
+              <p style="color: rgb(255, 255, 255);" class="mb-4"> <b>Courses</b></p>
+              <p style="color: rgb(255, 255, 255);" class="fs-30 mb-2">{{courses}}</p>     
+              <p></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 mb-4 stretch-card transparent">
+          <div class="card card-dark-blue">
+            <div class="card-body">
+              <p style="color: rgb(255, 255, 255);" class="mb-4"> <b> Groups</b></p>
+              <p style="color: rgb(255, 255, 255);" class="fs-30 mb-2">{{groups}}</p>
+              <p></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-4 mb-lg-0 stretch-card transparent">
+          <div class="card card-light-blue">
+            <div class="card-body">
+              <p style="color: rgb(255, 255, 255);" class="mb-4"> <b>Mentors</b> </p>
+              <p style="color: rgb(255, 255, 255);" class="fs-30 mb-2">{{mentors}}</p>
+              <p></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 stretch-card transparent">
+          <div class="card bg-success">
+            <div class="card-body">
+              <p style="color: rgb(255, 255, 255);" class="mb-4"> <b>Mentees</b> </p>
+              <p style="color: rgb(255, 255, 255);" class="fs-30 mb-2">{{mentees}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<h2  style="color:  rgb(37, 130, 243);"> <b  class="fa fa-caret-square-o-right" aria-hidden="true"> Blogs</b> </h2>
+<br><br>
+    <div class="card-deck">
+      {% for course in page.object_list %}
+      <div class="card">
+        <img class="card-img-top" src="{{ course.thumbnail.url }}" alt="Card image cap">
+        <div class="card-body">
+          <h6 style="color: rgb(37, 130, 243);" class="card-title"><a href="{{course.post_link}}">{{ course.title }}</a></h6>
+          <p style="color: rgb(37, 130, 243);" class="card-text"> <b style="color: rgb(255, 169, 10);"> </b> <b  style="color: green;"> {{course.content|safe}}</b></p>
+
+        </div>
+        <div class="card-footer">
+          <small class="text-muted"></small>
+        </div>
+      </div>
+      {% endfor %}
+      <br>
+      <br>
+
+<style>
+  .brd {
+      font-weight: bold;
+  }
+ </style>
+<table style="color: rgb(255, 255, 255)" class="table">
+  <thead  class="thead-success">
+    <tr >
+      <th bgcolor="blue" colspan="3"  scope="col">Courses</th>
+      <th bgcolor="blue"  scope="col"></th>
+      <th  bgcolor="blue" scope="col"></th>
+      {% if request.user.is_superuser %}
+      <th bgcolor="blue"  scope="col"></th>
+      {% endif %}
+
+    </tr>
+    <tr>
+      <th  class="bg-warning" scope="col">ID</th>
+      <th  class="bg-success" scope="col">Title</th>
+      <th  class="bg-success" scope="col">Price</th>
+      {% if request.user.is_superuser %}
+      <th  class="bg-success" scope="col">Action</th>
+      {% endif %}
+      <th  class="bg-success" scope="col"></th>
+      <th  class="bg-success" scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for course in course %}
+    <tr class="brd">
+      <th style="color: black; " scope="row">{{ course.id }}</th>
+      <td style="color: black;">{{ course.title }}</td>
+      <td style="color: black;">{{ course.price }}</td>
+      {% if request.user.is_superuser %}
+      <td style="color: black;">
+      <a class="fa fa-trash" aria-hidden="true" href="{% url 'course_delete' course.id %}"> <b>  Delete  </b></a>
+      <a class="fa fa-pencil" aria-hidden="true" href="{% url 'course_update' course.id %}"><b>  Edit  </b></a>
+      </td>
+      {% endif %}
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+    <br>
+    <br>
+    <style>
+        .brd {
+            font-weight: bold;
+        }
+       </style>
+    <table style="color: rgb(255, 255, 255)" class="table">
+        <thead  class="thead-success">
+          <tr >
+            <th bgcolor="blue" colspan="3"  scope="col">Groups</th>
+            <th bgcolor="blue"  scope="col"></th>
+            <th  bgcolor="blue" scope="col"></th>
+            <th bgcolor="blue"  scope="col"></th>
+            {% if request.user.is_superuser %}
+            <th bgcolor="blue"  scope="col"></th>
+            {% endif %}
+          </tr>
+          <tr>
+            <th  class="bg-warning" scope="col">ID</th>
+            <th  class="bg-success" scope="col">Title</th>
+            <th  class="bg-success" scope="col">Course</th>
+            <th  class="bg-success" scope="col">Mentee qty</th>
+            <th  class="bg-success" scope="col">Lesson qty</th>
+            <th  class="bg-success" scope="col">Mentor</th>
+            {% if request.user.is_superuser %}
+            <th  class="bg-success" scope="col">Action</th>
+            {% endif %}
+          </tr>
+        </thead>
+        <tbody>
+            {% for group in group %}
+          <tr class="brd">
+            <th style="color: black; " scope="row">{{ group.id }}</th>
+            <td style="color: black;">{{ group.title }}</td>
+            <td style="color: black;">{{ group.course }}</td>
+            <td style="color: black;">{{ group.mentee_qty }}</td>
+            <td style="color: black;">{{ group.lesson_qty }}</td>
+            <td style="color: black;">{{ group.mentor }}</td>
+            {% if request.user.is_superuser %}
+            <td style="color: black;">
+            <a class="fa fa-trash" aria-hidden="true" href="{% url 'group_delete' group.id %}"> <b>  Delete  </b></a>
+            <a class="fa fa-pencil" aria-hidden="true" href="{% url 'group_update' group.id %}"><b>  Edit  </b></a>
+            </td>
+            {% endif %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+  <br>
+  <br> 
+  <br>
+  <br>    
+
+
+
+      
+ 
+
+
+<!-- Video Page -->
+<!-- <div  class="col-md-3 mb-3">
+  <div  class="card">
+    <iframe  class="img-fluid" width="315" height="200" src="" title="YouTube video player"> </iframe>
+      <div  class="card-body; color: aqua;">
+        <p><h6>Title: <i style="color: rgb(33, 150, 228);" > {{ video.title }} </i></h6></p> 
+        <p><h6>Language: <i style="color: rgb(5, 35, 74);" > {{ video.language }} </i></h6></p>
+        <p><h6>Category: <i style="color: rgb(71, 251, 71);" > {{ video.category }} </i></h6></p> 
+        <p><h6> Add Date: <i style="color: rgb(33, 150, 228);" >  {{ video.add_date }}  </i></h6></p>
+
+      </div>
+
+  </div>
+</div> -->
+
+<br>
+
+    <!-- <p > <a href="" type="button" class="btn btn-outline-warning"> <b style="color: rgb(25, 151, 224);"> Batafsil</b><i style="color: rgb(25, 151, 224);" ></i></a></p> -->
+
+
+{% endblock %}

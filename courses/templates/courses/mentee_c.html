@@ -1,0 +1,54 @@
+{% extends 'mainapp/base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block content %}
+
+
+<div class="row">
+    <div class="col-md-6 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Mentee Create Form</h4>
+          <p class="card-description">
+            Basic form layout
+          </p>
+          <form class="forms-sample" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="exampleInputUsername1">full_name</label>
+              {% render_field form.full_name type="text" class="form-control" id="exampleInputUsername1" placeholder="Abbos Nazarov" %}
+
+            </div>
+            <div class="form-group">
+                <label for="exampleInputUsername1">birth_date</label>
+                {% render_field form.birth_date type="date" class="form-control" id="exampleInputUsername1" placeholder="dd/mm/yyyy" %}
+              </div>
+            <div class="form-group">
+                <label for="exampleTextarea1">gender</label>
+                {% render_field form.gender class="form-control" id="exampleTextarea1" rows="6" %}
+            </div>
+            <div class="form-group">
+                <label for="exampleInputUsername1">group</label>
+                {% render_field form.group type="text" class="form-control" id="exampleInputUsername1" placeholder="group 001" %}
+            </div>
+            <div class="form-group">
+              <label for="exampleInputUsername1">email</label>
+              {% render_field form.email type="email" class="form-control" id="exampleInputUsername1" placeholder="name@gmail.com" %}
+            </div>
+            <div class="form-group">
+              <label for="exampleInputUsername1">phone</label>
+              {% render_field form.phone type="text" class="form-control" id="exampleInputUsername1" placeholder="+998(90)099-33-54" %}
+            </div>
+            <div class="form-group">
+              <label for="exampleInputUsername1">payment</label>
+              {% render_field form.payment type="text" class="form-control" id="exampleInputUsername1" placeholder="" %}
+            </div>
+              <button type="submit" class="btn btn-primary mr-2">OK</button>
+            </form>
+        </div>
+      </div>
+    </div>
+</div>
+
+{% endblock %}

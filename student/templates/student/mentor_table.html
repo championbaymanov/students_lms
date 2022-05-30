@@ -1,0 +1,77 @@
+{% extends 'mainapp/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<form method = "GET" action="">
+  <div class="col-md-3 grid-margin stretch-card" class="input-group">
+      <input name='q' type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+      <button type="submit" class="btn btn-outline-primary">Qidirish</button>
+  </div>
+
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title mb-0"><i>Mentors</i></p>
+          {% if request.user.is_superuser %}
+          <tr><a href ="{% url 'mentor_c' %}" class="btn btn-primary mr-2">Add Mentor</a>
+            {% endif %}
+          </tr>
+          <p>
+            <br>
+            <form action="" method="POST">
+            {% csrf_token %}
+            <div class="btn-group">
+              <select type="dropdown" class="form-control form-control-lg"
+              id="exampleInputUsername1" name="gender_id" id="">
+              <option type="submit" value="{{ gender }}">Barcha Mentorlar</option>
+              
+              {% for mentor in mentors %}
+              
+                <option type="submit" value="{{ gender.id }}">{{ gender }}</option>
+                {% endfor %}
+            </select>
+            </div>
+            <button class="btn btn-success" type="submit">OK</button>
+          </p>
+          <div class="table-responsive">
+            <table class="table table-striped table-borderless">
+              <thead>
+                <tr>
+                  <th>Full Name</th>
+                  <th>Birth Date</th>
+                  <th>Gender</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Specification</th>
+                  {% if reques.user.is_superuser %}
+                    <th>Actions</th>
+                  {% endif %}
+                </tr>  
+              </thead>
+              <tbody>
+                {% for mentor in mentors %}
+                <tr>
+                  <td>{{ mentor.full_name }}</td>
+                  <td class="font-weight-bold">{{ mentor.birth_date }}</td>
+                  <td>{{ mentor.gender }}</td>
+                  <td>{{ mentor.email }}</td>
+                  <td>{{ mentor.phone }}</td>
+                  <td>{{ mentor.specification }}</td>
+                    <td class="font-weight-bold">
+                      <a href="{% url 'mentor_u' mentor.id %}"><i class="ti-pencil btn-icon-prepend"></i></a>
+                      <a href="{% url 'mentor_d' mentor.id %}"><i class="ti-trash btn-icon-prepend"></i></a>
+                    </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+</form>
+
+{% endblock %}

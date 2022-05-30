@@ -1,0 +1,86 @@
+{% extends 'student/base.html' %}
+{% load hitcount_tags %} 
+
+{% load static %}
+
+{% block content %}
+
+<a class="fa fa-home" aria-hidden="true"  href="{% url 'dashboard' %}"> Dashboard </a> <p class="fa fa-angle-double-right" aria-hidden="true" ></p>
+<a href="{% url 'videos' %}"> Videos </a><p class="fa fa-angle-double-right" aria-hidden="true" ></p>
+<a href=""> Video Details</a>
+<br>
+
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-body">
+            
+            <iframe width="890" height="415" src="{{ object.vidoe_url }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <br>
+            
+            <br>
+            <p style="color: rgb(16, 133, 217);" class="fa fa-check-circle-o" aria-hidden="true"> {{object.title}}</p> <br>
+            <h1 style="color: rgb(16, 133, 217);" class="fa fa-tag" aria-hidden="true">  {{object.categories.all.0}}</h1><br>
+            <p style="color: rgb(16, 133, 217);" class="fa fa-calendar" aria-hidden="true"> {{object.date|date}}</p>
+            <br>
+            <p style="color: rgb(16, 133, 217);" class="fa fa-user-o" aria-hidden="true"> {{ object.author }}</p>
+            <br>
+            <h6 > <a class="fa fa-eye" aria-hidden="true" href=""> <b>Ko'rildi</b></a> {% get_hit_count for object %}</h6>
+            <br> <br>
+            {% if request.user.is_superuser %}
+            <td style="color: black;">
+            <a class="fa fa-trash" aria-hidden="true" href="{% url 'video_delete' object.id %}"> <b>  Delete  </b></a>
+            <a class="fa fa-pencil" aria-hidden="true" href="{% url 'update_video' object.id %}"><b>  Edit  </b></a>
+            </td>
+            {% endif %}
+            <br>
+            
+            <b style="color: rgb(16, 133, 217);" class="fa fa-caret-square-o-down" aria-hidden="true"> Description</b> <br>
+            <b>{{object.description |safe}}</b>
+            <p></p>
+            <br>
+            <br>
+            <form method="post" action=""></form>
+            <br>
+            <div class="section ">
+                <div class="container ">
+                    <div style="color:rgb(35, 128, 241);" class="card-header fa fa-comments-o" aria-hidden="true"> Comments {{post_comments_count}}</div><br><br>
+                    <div class="row ">
+                        <div class="col-lg-8 mx-auto ">
+                            <!--display coment-->
+            
+                                <div class="media-list">
+                                    {% for comment in post_comments %}
+                                    
+                                    <div>
+                                        <div class="avatar-wrapper avatar-extra-text"><span class="round"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUkIq9DjIgYbGgIenjkjA-tkr3mN1_bBnsEw&usqp=CAU" alt="user" width="50"></span></div>
+                                        <div class="media-body">
+                                            <div class="small-1">
+                                                <b> {{comment.user}}</b>
+                                                <time style="color:rgb(12, 114, 211)" class="ml-4 opaciy-70 small-3"> <b> {{comment.content}}</b></time>
+                                            </div>
+                                                <p> <b > {{comment.date}}</b> </p>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            {% endfor %}
+                                        </div>
+                                        
+                                        
+                        <!--display the form-->
+                            <form method="POST" action="{% url 'video' slug=object.slug %}">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    {{form}}
+                                </div> 
+                                    <button class="btn btn-primary btn-block " type="submit">Add Comment</button>   
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p></p>
+</div>
+
+{% endblock %}

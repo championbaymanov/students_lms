@@ -1,0 +1,68 @@
+{% extends 'student/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<a class="fa fa-home" aria-hidden="true"  href="{% url 'dashboard' %}"> Dashboard </a> <p class="fa fa-angle-double-right" aria-hidden="true" ></p>
+<a href="{% url 'groups_page' %}"> Groups Table </a>
+<br>
+<br>
+<br>
+<button type="button" class="btn btn-outline-info"> <a  href="{% url 'courses_page' %}"><b> Courses Table</b></a> </button>
+<button type="button" class="btn btn-outline-info"> <a href="{% url 'mentors_page' %}"> <b> Mentors Table</b></a> </button>
+<button type="button" class="btn btn-outline-info"> <a href="{% url 'mentees_page' %}"> <b> Mentees Table</b></a> </button>
+<button type="button" class="btn btn-outline-success"><a style="color: rgb(144, 230, 16);" href="{% url 'group_create' %}"> <b> Create Group</b></a> </button>
+<br>
+<br>
+<style>
+    .brd {
+        font-weight: bold;
+    }
+   </style>
+<table style="color: rgb(255, 255, 255)" class="table">
+    <thead  class="thead-success">
+      <tr >
+        <th bgcolor="blue" colspan="3"  scope="col">Groups</th>
+        <th bgcolor="blue"  scope="col"></th>
+        <th  bgcolor="blue" scope="col"></th>
+        <th bgcolor="blue"  scope="col"></th>
+        {% if request.user.is_superuser %}
+        <th bgcolor="blue"  scope="col"></th>
+        {% endif %}
+      </tr>
+      <tr>
+        <th  class="bg-warning" scope="col">ID</th>
+        <th  class="bg-success" scope="col">Title</th>
+        <th  class="bg-success" scope="col">Course</th>
+        <th  class="bg-success" scope="col">Mentee qty</th>
+        <th  class="bg-success" scope="col">Lesson qty</th>
+        <th  class="bg-success" scope="col">Mentor</th>
+        {% if request.user.is_superuser %}
+        <th  class="bg-success" scope="col">Action</th>
+        {% endif %}
+      </tr>
+    </thead>
+    <tbody>
+        {% for group in groups %}
+      <tr class="brd">
+        <th style="color: black; " scope="row">{{ group.id }}</th>
+        <td style="color: black;">{{ group.title }}</td>
+        <td style="color: black;">{{ group.course }}</td>
+        <td style="color: black;">{{ group.mentee_qty }}</td>
+        <td style="color: black;">{{ group.lesson_qty }}</td>
+        <td style="color: black;">{{ group.mentor }}</td>
+        {% if request.user.is_superuser %}
+        <td style="color: black;">
+        <a class="fa fa-trash" aria-hidden="true" href="{% url 'group_delete' group.id %}"> <b>  Delete  </b></a>
+        <a class="fa fa-pencil" aria-hidden="true" href="{% url 'group_update' group.id %}"><b>  Edit  </b></a>
+        </td>
+        {% endif %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  
+    </tbody>
+  </table>
+
+{% endblock %}

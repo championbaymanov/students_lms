@@ -1,0 +1,27 @@
+{% load hitcount_tags %} 
+
+{% for post in posts %}
+
+
+<div class="card mb-5" style="max-width: 1000px;">
+  <div class="row g-0">
+    <div class="col-md-4">
+      
+      <iframe width="350" height="200" src="{{ post.vidoe_url }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title"><a href="{{post.video_link}}">{{ post.title }}</a></h5>
+        <p class="card-text"> <b> {{post.description|safe}}</b></p>
+        <p class="card-text"><small class="text-muted">  <a href=""><i class="ti-user"></i>  {{ post.author }} | </a>
+          <a href="#"><i class="fa fa-calendar" aria-hidden="true"></i> {{post.date|date}} | </a><a href="#"><i  class="fa fa-eye" aria-hidden="true"> Ko'rildi</i> {% get_hit_count for post %} | </a></small></p><a href="{{post.video_link}}">Batafsil</a>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+        </svg>
+  
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}

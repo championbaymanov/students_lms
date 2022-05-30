@@ -1,0 +1,18 @@
+<h2  style="color:  rgb(37, 130, 243);"> <b  class="fa fa-caret-square-o-right" aria-hidden="true"> Blogs</b> </h2>
+<br><br>
+    <div class="card-deck">
+      {% for post in page.object_list %}
+      <div class="card">
+        <img class="card-img-top" src="{{ post.phota.url }}" alt="Card image cap">
+        <div class="card-body">
+          <h6 style="color: rgb(37, 130, 243);" class="card-title"><a href=""></a></h6>
+          <p style="color: rgb(37, 130, 243);" class="card-text"> <b style="color: rgb(255, 169, 10);"> </b> <b  style="color: green;"> </b></p>
+
+        </div>
+        <div class="card-footer">
+          <small class="text-muted"></small>
+        </div>
+      </div>
+      {% endfor %}
+      <br>
+      <br>

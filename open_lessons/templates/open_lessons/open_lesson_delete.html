@@ -1,0 +1,33 @@
+{% extends "student/base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+  <div class="container-scroller">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+      <div class="content-wrapper d-flex align-items-center auth px-0">
+        <div class="row w-100 mx-0">
+          <div class="col-lg-8 mx-auto">
+            <div class="auth-form-light text-left py-5 px-4 px-sm-5">
+              <div class="brand-logo">
+                <img src="{% static 'images/aaa4.png' %}" alt="logo">
+              </div>
+              <h4>O'chirish</h4>
+              <h3 class="font-weight-light">Siz rostdan ham {{ post }} ni o'chirmoqchimisiz?</h3>
+
+              <form class="pt-3" action="{% url 'open_delete' post.id %}" method="POST">
+                {% csrf_token %}
+                <div class="mt-3">
+                  <a href="{% url 'open_lesson' %}" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" >Yoq</a>
+                </div>
+                <div class="mt-3">
+                  <button class="btn btn-block btn-danger btn-lg font-weight-medium auth-form-btn" type="submit">Ha</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+{% endblock %}

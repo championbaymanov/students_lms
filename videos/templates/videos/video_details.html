@@ -1,0 +1,42 @@
+{% extends 'mainapp/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<a class="fa fa-home" aria-hidden="true"  href="{% url 'dashboard' %}"> Dashboard </a> <p class="fa fa-angle-double-right" aria-hidden="true" ></p>
+<a href=""> Videos </a><p class="fa fa-angle-double-right" aria-hidden="true" ></p>
+<a href=""> Video Details</a>
+<br>
+
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-body">
+            <iframe width="890" height="415" src="{{ object.video_url }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <br>
+            <br>
+            <h1 style="color: rgb(16, 133, 217);" class="fa fa-tag" aria-hidden="true"> {{ object.title }}</h1><br>
+            <p style="color: rgb(16, 133, 217);" class="fa fa-check-circle-o" aria-hidden="true"> Language : {{ object.language }}</p> <br>
+            <p style="color: rgb(16, 133, 217);" class="fa fa-calendar" aria-hidden="true"> {{ object.add_date }}</p>
+            <br>
+            <p style="color: rgb(16, 133, 217);" class="fa fa-user-o" aria-hidden="true"> {{ object.author }}</p>
+            <br> <br>
+            {% if request.user.is_superuser %}
+            <br>
+            <a class="fa fa-trash-o" aria-hidden="true" href="{% url 'video_delete' object.pk %}">  O'chirish | </a>
+            <br>
+            {% endif %}
+            <br>
+            <b style="color: rgb(16, 133, 217);" class="fa fa-caret-square-o-down" aria-hidden="true"> Description</b> <br>
+            <b>{{ object.description }}</b>
+            <p></p>
+            <br>
+            <br>
+            <form method="post" action=""></form>
+            <br>
+        </div>
+    </div>
+    <p></p>
+</div>
+
+{% endblock %}

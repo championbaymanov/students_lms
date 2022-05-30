@@ -1,0 +1,47 @@
+{% extends 'student/base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block content %}
+
+
+<div class="row">
+    <div class="col-md-6 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Mentor Form</h4>
+          <form class="forms-sample" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="exampleInputUsername1">First name</label>
+              {% render_field form.f_name type="text" class="form-control" id="exampleInputUsername1" placeholder="Abbos" %}
+            </div>
+            <div class="form-group">
+                <label for="exampleInputUsername1">Last name</label>
+                {% render_field form.s_name type="text" class="form-control" id="exampleInputUsername1" placeholder="Nazarov" %}
+            </div>
+            <div class="form-group">
+              <label for="exampleInputUsername1">Yoshingiz</label>
+              {% render_field form.age type="text" class="form-control" id="exampleInputUsername1" placeholder="20-52" %}
+            </div>
+            <div class="form-group">
+              <label for="exampleInputUsername1">Yoshingiz</label>
+              {% render_field form.gender type="text" class="form-control" id="exampleInputUsername1"placeholder="Male" %}
+            </div>
+            <div class="form-group">
+              <label for="exampleInputUsername1">Phone</label>
+              {% render_field form.phone type="dropdown" class="form-control" id="exampleInputUsername1" placeholder="+99894 099-33-54" %}
+            </div>
+            <div class="form-group">
+                <label for="exampleInputUsername1">Group</label>
+                {% render_field form.group type="text" class="form-control" id="exampleInputUsername1" placeholder="Masalan Python 001..." %}
+            </div>
+
+              <button type="submit" class="btn btn-primary mr-2">OK</button>
+            </form>
+        </div>
+      </div>
+    </div>
+</div>
+
+{% endblock %}

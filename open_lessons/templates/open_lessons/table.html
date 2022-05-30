@@ -1,0 +1,51 @@
+{% extends 'student/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<a class="fa fa-home" aria-hidden="true"  href="{% url 'dashboard' %}"> Dashboard </a> <p class="fa fa-angle-double-right" aria-hidden="true" ></p>
+<a href="{% url 'open_lesson' %}"> Open Lesson </a><p class="fa fa-angle-double-right" aria-hidden="true" ></p>
+<a href=""> Table</a>
+<br>
+<br>
+
+<style>
+    .brd {
+        font-weight: bold;
+    }
+   </style>
+   
+<table style="color: rgb(255, 255, 255)" class="table">
+    <thead  class="thead-success">
+      <tr >
+        <th bgcolor="blue" colspan="3"  scope="col">{{ object.title }}</th>
+        <th  bgcolor="blue" scope="col"></th>
+        <th bgcolor="blue"  scope="col"></th>
+
+      </tr>
+      <tr>
+        <th  class="bg-warning" scope="col">ID</th>
+        <th  class="bg-success" scope="col">Full Name</th>
+        <th colspan="3" class="bg-success" scope="col">Phone</th>
+
+      </tr>
+    </thead>
+    {% for comment in post_comments %}
+    <tbody>
+        
+      <tr class="brd">
+        <th style="color: black; " scope="row">{{ comment.id }}</th>
+        <td style="color: black;">{{ comment.full_name }}</td>
+        <td style="color: black;">{{ comment.phone }}</td>
+      </tr>
+      
+    </tbody>
+    {% endfor %}
+  </table>
+
+  
+    </tbody>
+  </table>
+
+{% endblock %}

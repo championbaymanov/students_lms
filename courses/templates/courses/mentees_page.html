@@ -1,0 +1,72 @@
+{% extends 'student/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<a class="fa fa-home" aria-hidden="true"  href="{% url 'dashboard' %}"> Dashboard </a> <p class="fa fa-angle-double-right" aria-hidden="true" ></p>
+<a href="{% url 'mentees_page' %}"> Mentees Table </a>
+<br>
+<br>
+<br>
+<button type="button" class="btn btn-outline-info"> <a href="{% url 'courses_page' %}"><b> Courses Table</b></a></button>
+<button type="button" class="btn btn-outline-info"> <a  href="{% url 'groups_page' %}"> <b> Groups Table</b></a></button>
+<button type="button" class="btn btn-outline-info"> <a href="{% url 'mentors_page' %}"> <b> Mentors Table</b></a></button>
+{% if request.user.is_superuser %}
+<button type="button" class="btn btn-outline-success"><a style="color: rgb(144, 230, 16);" href="{% url 'mentee_create' %}"> <b> Add Mentee</b></a> </button>
+{% endif %}
+<br>
+<br>
+<style>
+    .brd {
+        font-weight: bold;
+    }
+   </style>
+<table style="color: rgb(255, 255, 255)" class="table">
+    <thead  class="thead-success">
+      <tr >
+        <th bgcolor="blue" colspan="3"  scope="col">Mentees</th>
+        <th bgcolor="blue"  scope="col"></th>
+        <th  bgcolor="blue" scope="col"></th>
+        <th bgcolor="blue"  scope="col"></th>
+        {% if request.user.is_superuser %}
+        <th bgcolor="blue"  scope="col"></th>
+        {% endif %}
+
+      </tr>
+      <tr>
+        <th  class="bg-warning" scope="col">ID</th>
+        <th  class="bg-success" scope="col">Ismi</th>
+        <th  class="bg-success" scope="col">Familiyasi</th>
+        <th class="bg-success" scope="col">Yoshi</th>
+        <th class="bg-success" scope="col">Telefon Raqami</th>
+        <th class="bg-success" scope="col">Group </th>
+        {% if request.user.is_superuser %}
+        <th class="bg-success" scope="col">Action </th>
+        {% endif %}
+
+      </tr>
+    </thead>
+    <tbody>
+        {% for mentee in mentees %}
+      <tr class="brd">
+        <th style="color: black; " scope="row">{{ mentee.id }}</th>
+        <td style="color: black;">{{ mentee.f_name }}</td>
+        <td style="color: black;">{{ mentee.s_name }}</td>
+        <td style="color: black;">{{ mentee.age }}</td>
+        <td style="color: black;"  >{{ mentee.phone }}</td>
+        <td style="color: black;"  >{{ mentee.group }}</td>
+        {% if request.user.is_superuser %}
+        <td style="color: black;">
+        <a class="fa fa-trash" aria-hidden="true" href="{% url 'mentee_delete' mentee.id %}"> <b>  Delete  </b></a>
+        <a class="fa fa-pencil" aria-hidden="true" href="{% url 'mentee_update' mentee.id %}"><b>  Edit  </b></a>
+        </td>
+        {% endif %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  
+    </tbody>
+  </table>
+
+{% endblock %}
